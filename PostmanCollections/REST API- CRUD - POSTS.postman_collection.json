@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "f5cab38b-9082-44f5-ad17-6b733ea25c6d",
+		"name": "REST API: CRUD - POSTS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25833213"
+	},
+	"item": [
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"prueba222@gmail.com\",\r\n  \"password\": \"contraseña123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/users/register",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserAuthLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"prueba222@gmail.com\",\r\n  \"password\": \"contraseña123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatePost",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-user-email",
+						"value": "prueba222@gmail.com",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Ejemplo de Post\",\r\n  \"body\": \"prueba de eliminacionnnnnnn prueba 2\",\r\n  \"creationDate\": \"2024-07-12\",\r\n  \"creator\": \"Prueba 333\",\r\n  \"estimatedPublicationDate\": \"2024-08-01\",\r\n  \"status\": \"pending\",\r\n  \"approvalPercentage\": 75,\r\n  \"corrections\": \"Ninguna\",\r\n  \"platform\": \"X\",\r\n  \"postUrl\": \"http://example.com/post\",\r\n  \"multimediaUrl\": \"http://example.com/media\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLogout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"prueba222@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllPost",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-user-email",
+						"value": "prueba222@gmail.com",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/posts",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByCreatorId",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-user-email",
+						"value": "prueba222@gmail.com",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/posts/by-creator/2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"posts",
+						"by-creator",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePost",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-user-email",
+						"value": "prueba222@gmail.com",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Ejemplo de Post\",\r\n    \"body\": \"Editadooooo\",\r\n    \"creationDate\": \"2024-07-12T05:00:00.000Z\",\r\n    \"estimatedPublicationDate\": \"2024-08-01T05:00:00.000Z\",\r\n    \"status\": \"pending\",\r\n    \"approvalPercentage\": 75,\r\n    \"corrections\": \"Ninguna\",\r\n    \"platform\": \"X\",\r\n    \"postUrl\": \"http://example.com/post\",\r\n    \"multimediaUrl\": \"http://example.com/media\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/posts/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-user-email",
+						"value": "prueba222@gmail.com",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/posts/3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"posts",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}

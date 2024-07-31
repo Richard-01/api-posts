@@ -1,38 +1,70 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="100" alt="Nest Logo" /></a>
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
+## Descripción
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+Se implemento una API para Posts o entradas. La idea era que se pueda listar una parrilla de posts, por ejemplo, para planificar las publicaciones de una semana en cualquier red social.
 
-```bash
-$ npm install
-```
+permitiendo crear un usuario solo con email y contraseña, sin necesidad de usar JWT ni ningún otro método de autenticación sofisticado. Solo un login básico que guarde el usuario y la contraseña y retorne si son válidos o no.
 
-## Running the app
+El CRUD de posts debe permitir:
+
+Crear un post.
+Editar un post.
+Consultar todos los posts del usuario logueado.
+Consultar un post por su ID (solo del usuario logueado por email).
+Eliminar un post (soft delete, es decir, no se elimina físicamente de la base de datos).
+
+Cada post debe tener al menos los siguientes campos:
+  - Título
+  - Cuerpo (body)
+  - Fecha de creación
+  - Creador
+  - Fecha estimada de publicación
+  - Estado (publicado o pendiente)
+  - Porcentaje de aprobación (número)
+  - Correcciones (cadena de texto)
+  - Plataforma (debe aceptar solo: X, Facebook, Instagram, LinkedIn)
+  - URL del post
+  - URL multimedia
+
+## Requisitos
+
+- Node.js (versión 14 o superior)
+- PostgreSQL
+- TypeORM
+
+## Instalacion
+
+1. **Clona el repositorio:**
+    ```bash
+      git clone https://github.com/tu_usuario/tu_repositorio.git
+      cd tu_repositorio
+    ```
+
+2. **Digitar el siguente comando en la consola para instalar las dependencias del proyecto.**
+    ```bash
+      $ npm install 
+    ```
+
+3. **Configura las variables de entorno en un archivo .env en la raíz del proyecto:**
+    ```bash
+      DB_HOST=tu_host
+      DB_PORT=5432
+      DB_USER=tu_usuario
+      DB_PASSWORD=tu_contraseña
+      DB_NAME=tu_base_de_datos
+    ```
+
+
+
+## Como correr el proyecto
 
 ```bash
 # development
@@ -45,18 +77,22 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Ejecucion de Endpoint
 
-```bash
-# unit tests
-$ npm run test
+1. **Ubicación del Archivo:**
 
-# e2e tests
-$ npm run test:e2e
+    `PostmanCollections/REST API- CRUD - POSTS.postman_collection.json`
 
-# test coverage
-$ npm run test:cov
-```
+2. **Cómo Importar la Colección en Postman:**
+
+- Abre Postman.
+- Haz clic en el icono de importación en la parte superior izquierda.
+- Selecciona "Archivo" y navega hasta  `PostmanCollections/REST API- CRUD - POSTS.postman_collection.json`
+- Haz clic en "Abrir" para importar la colección.
+- Uso de la Colección:
+
+Una vez importada, encontrarás la colección en la pestaña de colecciones de Postman.
+Puedes usar los endpoints predefinidos para hacer solicitudes y probar la API. **Tener en cuenta que en los headers se deben cambiar por el correo que se hizo la autenticacion de login para poder aceder a crear y hacer hacer el resto de operaciones CRUD**
 
 ## Support
 

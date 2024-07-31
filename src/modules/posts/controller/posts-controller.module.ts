@@ -1,43 +1,64 @@
 
-import { Controller, Post, Get, Param, Body, Delete, Req, Put } from '@nestjs/common';
+import { Controller, Post, Get, Param, Body, Delete, Req, Put, NotFoundException, ParseIntPipe } from '@nestjs/common';
 import { PostService } from '../services/posts-services.service';
 import { CreatePostDto } from '../dtos/create-post.dto';
-import { Postt } from '../entity/post.entity';
 import { UpdatePostDto } from '../dtos/update-post.dto';
+import { AuthService } from 'src/modules/auth/services/auth-services.service';
 
 
 
 @Controller('posts')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(private readonly postService: PostService,
+    private readonly authService: AuthService
+  ) { }
 
   @Post()
-  createPost(@Body() createPostDto: CreatePostDto, @Req() req): Promise<Postt> {
-    const userEmail = req.user.email; // Obtener el email del usuario autenticado
+  async createPost(@Body() createPostDto: CreatePostDto, @Req() req: Request) {
+    const userEmail = req.headers['x-user-email'] as string;
+    if (!userEmail || !this.authService.isAuthenticated(userEmail)) {
+      throw new NotFoundException('User not authenticated');
+    }
     return this.postService.createPost(createPostDto, userEmail);
   }
 
   @Get()
-  getPosts(@Req() req): Promise<Postt[]> {
-    const userEmail = req.user.email; 
-    return this.postService.getPostsByUser(userEmail);
+  async getPosts(@Req() req: Request) {
+    const userEmail = req.headers['x-user-email'] as string;
+    if (!userEmail || !this.authService.isAuthenticated(userEmail)) {
+      throw new NotFoundException('User not authenticated');
+    }
+    return this.postService.getAllPosts();
   }
 
-  @Get(':id')
-  getPostById(@Param('id') id: number, @Req() req): Promise<Postt> {
-    const userEmail = req.user.email;
-    return this.postService.getPostById(id, userEmail);
+  @Get('by-creator/:creatorId')
+  async getPostsByCreatorId(@Param('creatorId') creatorId: number, @Req() req: Request) {
+    const userEmail = req.headers['x-user-email'] as string;
+    if (!userEmail || !this.authService.isAuthenticated(userEmail)) {
+      throw new NotFoundException('User not authenticated');
+    }
+    return this.postService.getPostsByCreatorId(creatorId, userEmail);
   }
 
   @Put(':id')
-  updatePost(@Param('id') id: number, @Body() updatePostDto: UpdatePostDto, @Req() req): Promise<Postt> {
-    const userEmail = req.user.email;
+  async updatePost(@Param('id', ParseIntPipe) id: number, @Body() updatePostDto: UpdatePostDto, @Req() req: Request) {
+    const userEmail = req.headers['x-user-email'] as string;
+    if (!userEmail || !this.authService.isAuthenticated(userEmail)) {
+      throw new NotFoundException('User not authenticated');
+    }
     return this.postService.updatePost(id, updatePostDto, userEmail);
   }
 
   @Delete(':id')
-  softDeletePost(@Param('id') id: number, @Req() req): Promise<void> {
-    const userEmail = req.user.email;
+  async softDeletePost(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() req: Request
+  ) {
+    const userEmail = req.headers['x-user-email'] as string;
+    if (!userEmail || !this.authService.isAuthenticated(userEmail)) {
+      throw new NotFoundException('User not authenticated');
+    }
     return this.postService.softDeletePost(id, userEmail);
   }
+
 }

@@ -7,6 +7,9 @@ export class Postt {
   id: number;
 
   @Column()
+  postByUser: number;
+
+  @Column()
   title: string;
 
   @Column()
