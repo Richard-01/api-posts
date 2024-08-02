@@ -44,8 +44,8 @@ Cada post debe tener al menos los siguientes campos:
 
 1. **Clona el repositorio:**
     ```bash
-      git clone https://github.com/tu_usuario/tu_repositorio.git
-      cd tu_repositorio
+      git clone https://github.com/Richard-01/api-posts.git
+      cd api-posts
     ```
 
 2. **Digitar el siguente comando en la consola para instalar las dependencias del proyecto.**
